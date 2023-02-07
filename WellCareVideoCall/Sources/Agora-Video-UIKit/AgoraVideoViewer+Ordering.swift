@@ -95,9 +95,9 @@ extension AgoraVideoViewer {
             self.backgroundVideoHolder.addSubview(videoSessionView)
             videoSessionView.frame.size = CGSize(
                 width: backgroundVideoHolder.frame.width,
-                height: backgroundVideoHolder.frame.height / 2
+                height: backgroundVideoHolder.frame.height / 2 - 1
             )
-            videoSessionView.frame.origin = CGPoint(x: 0, y: idx == 0 ? 0 : backgroundVideoHolder.frame.height / 2)
+            videoSessionView.frame.origin = CGPoint(x: 0, y: idx == 0 ? 0 : backgroundVideoHolder.frame.height / 2 + 1)
             #if os(iOS)
             videoSessionView.autoresizingMask = [
                 .flexibleWidth, .flexibleHeight,
