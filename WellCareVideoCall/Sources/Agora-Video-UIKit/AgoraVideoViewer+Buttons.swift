@@ -451,7 +451,7 @@ extension AgoraVideoViewer {
         
         print("hai translation \(translation)")
         
-        let maxOffsetY = UIScreen.main.bounds.height - (self.style == .expand ? 300 : controlContainer.frame.height)/2
+        let maxOffsetY = UIScreen.main.bounds.height - controlContainer.frame.height/2 - ((self.style == .expand ? bottomTableHeight : 0))
         let minOffsetY =  UIScreen.main.bounds.height - 30 + controlContainer.frame.height/2
         if sender.state == .began {
             trayOriginalCenter = controlContainer.center

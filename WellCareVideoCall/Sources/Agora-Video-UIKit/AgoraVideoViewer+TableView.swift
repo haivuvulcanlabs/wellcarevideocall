@@ -18,16 +18,16 @@ extension AgoraVideoViewer {
             userListView.leftAnchor.constraint(equalTo: controlView.leftAnchor, constant: 0),
             userListView.rightAnchor.constraint(equalTo: controlView.rightAnchor),
             userListView.topAnchor.constraint(equalTo: controlView.bottomAnchor),
-            userListView.heightAnchor.constraint(equalToConstant: 300)
+            userListView.heightAnchor.constraint(equalToConstant: bottomTableHeight)
         ])
         
         userListView.addSubview(userListTableView)
         userListTableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            userListTableView.topAnchor.constraint(equalTo: userListView.topAnchor),
+            userListTableView.topAnchor.constraint(equalTo: userListView.topAnchor, constant: 0),
             userListTableView.leftAnchor.constraint(equalTo: userListView.leftAnchor),
-            userListTableView.bottomAnchor.constraint(equalTo: userListView.bottomAnchor),
+            userListTableView.bottomAnchor.constraint(equalTo: userListView.bottomAnchor, constant: (hasTopNorth ? -20 : -5)),
             userListTableView.rightAnchor.constraint(equalTo: userListView.rightAnchor),
         ])
     }

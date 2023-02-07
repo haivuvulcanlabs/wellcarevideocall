@@ -216,11 +216,10 @@ extension AgoraVideoViewer {
 //            setVideoHolderPosition()
 //        }
         
-        let hasTopNorth: Bool = UIScreen.main.bounds.height >= 812
         if style == .grid {
             self.backgroundVideoHolder.frame = CGRect(x: 0, y: videoTopMargin, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - videoTopMargin)
         } else if style == .strip {
-            self.backgroundVideoHolder.frame = CGRect(x: 0, y: videoTopMargin, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - videoTopMargin - (hasTopNorth ? 275 : 265))
+            self.backgroundVideoHolder.frame = CGRect(x: 0, y: videoTopMargin, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - videoTopMargin - (hasTopNorth ? 280 : 275))
         } else {
             setVideoHolderPosition()
         }
@@ -267,7 +266,7 @@ extension AgoraVideoViewer {
         //layout for expand
         
 
-        let bottomMargin: CGFloat = self.style == .expand ? 300 : controlContainer.frame.height
+        let bottomMargin: CGFloat = controlContainer.frame.height + (self.style == .expand ? bottomTableHeight : 0)
         controlContainer.frame.origin = CGPoint(x: 5, y: UIScreen.main.bounds.height - bottomMargin)
         
         DispatchQueue.main.async { [weak self] in
@@ -286,14 +285,25 @@ extension AgoraVideoViewer {
     
     func maximizeControlContainer() {
         guard let controlContainer = controlContainer else { return }
-        let maxOffsetY = UIScreen.main.bounds.height - (self.style == .expand ? 300 : controlContainer.frame.height)/2
+        let maxOffsetY = UIScreen.main.bounds.height - controlContainer.frame.height/2 - (self.style == .expand ? bottomTableHeight : 0)
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             controlContainer.center = CGPoint(x: controlContainer.center.x, y: maxOffsetY)
         })
     }
     
     var videoTopMargin: CGFloat {
-        let hasTopNorth: Bool = UIScreen.main.bounds.height >= 812
         return hasTopNorth ? 92 : 82
+    }
+    
+    
+    var bottomTableHeight: CGFloat {
+        let hasTopNorth: Bool = UIScreen.main.bounds.height >= 812
+        
+        let videoCount = hasTopNorth ? 3 : 2
+        return CGFloat(videoCount * 68 + (hasTopNorth ? 30 : 20))
+    }
+    
+    var hasTopNorth: Bool {
+        return UIScreen.main.bounds.height >= 812
     }
 }

@@ -199,7 +199,7 @@ class WellCareViewController: UIViewController {
         countdownView.addSubview(countDownContainer)
         
         view.addSubview(countdownView)
-        countdownView.frame = CGRect(x: 26, y: 14, width: 65, height: 18)
+        countdownView.frame = CGRect(x: 26, y: hasTopNorth ? 20 : 14, width: 65, height: 18)
         recordImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -221,7 +221,7 @@ class WellCareViewController: UIViewController {
             countDownContainer.leftAnchor.constraint(equalTo: countdownView.leftAnchor, constant: 15),
 
             clockImageView.centerYAnchor.constraint(equalTo: countDownContainer.centerYAnchor),
-            recordImageView.leftAnchor.constraint(equalTo: countDownContainer.leftAnchor, constant: 4),
+            clockImageView.leftAnchor.constraint(equalTo: countDownContainer.leftAnchor, constant: 2),
             clockImageView.widthAnchor.constraint(equalToConstant: 11),
             clockImageView.heightAnchor.constraint(equalToConstant: 12),
             
@@ -349,7 +349,7 @@ class WellCareViewController: UIViewController {
                 contraint.isActive = false
             }
             NSLayoutConstraint.activate([
-                topControlerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: hasTopNorth ? 0 : 20),
+                topControlerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: hasTopNorth ? 0 : 40),
                 topControlerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
                 topControlerView.heightAnchor.constraint(equalToConstant: 41),
                 topControlerView.widthAnchor.constraint(equalToConstant: 157)

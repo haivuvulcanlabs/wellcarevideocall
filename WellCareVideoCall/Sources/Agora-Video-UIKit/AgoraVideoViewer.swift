@@ -445,6 +445,7 @@ open class AgoraVideoViewer: MPView, SingleVideoViewDelegate {
         tableView.dataSource = self
         tableView.register(WellCareUserTVC.self, forCellReuseIdentifier: "WellCareUserTVC")
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         return tableView
     }()
     
