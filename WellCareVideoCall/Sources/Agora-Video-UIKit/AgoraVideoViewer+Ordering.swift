@@ -309,10 +309,10 @@ extension AgoraVideoViewer {
 }
 
 extension AgoraVideoViewer {
-    func relayoutAgoraView() {
+    func layoutForPIP() {
         if !Thread.isMainThread {
             DispatchQueue.main.async {
-                self.relayoutAgoraView()
+                self.layoutForPIP()
             }
             return
         }
@@ -321,5 +321,6 @@ extension AgoraVideoViewer {
             controlContainer.isHidden = self.pip
         }
         
+        userListView.isHidden = pip
     }
 }

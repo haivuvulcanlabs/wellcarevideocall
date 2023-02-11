@@ -328,7 +328,7 @@ open class AgoraVideoViewer: MPView, SingleVideoViewDelegate {
     var pip: Bool = false {
         didSet {
             if oldValue != self.pip {
-                self.relayoutAgoraView()
+                self.layoutForPIP()
                 self.delegate?.endEnterPIP()
             }
         }

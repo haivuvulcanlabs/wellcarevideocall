@@ -101,7 +101,7 @@ class PIPControlView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
         ])
         stackView.addArrangedSubview(flipCameraButton)
         stackView.addArrangedSubview(cameraButton)
@@ -112,14 +112,14 @@ class PIPControlView: UIView {
         micButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            flipCameraButton.heightAnchor.constraint(equalToConstant: 20),
+            flipCameraButton.heightAnchor.constraint(equalToConstant: 18),
             flipCameraButton.widthAnchor.constraint(equalToConstant: 20),
             
-            cameraButton.heightAnchor.constraint(equalToConstant: 20),
+            cameraButton.heightAnchor.constraint(equalToConstant: 18),
             cameraButton.widthAnchor.constraint(equalToConstant: 20),
             
-            micButton.heightAnchor.constraint(equalToConstant: 20),
-            micButton.widthAnchor.constraint(equalToConstant: 20),
+            micButton.heightAnchor.constraint(equalToConstant: 18),
+            micButton.widthAnchor.constraint(equalToConstant: 18),
             
         ])
         

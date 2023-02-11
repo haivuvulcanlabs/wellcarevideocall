@@ -98,6 +98,12 @@ class WellCareViewController: UIViewController {
         return view
     }()
     
+    private lazy var pandGesture: UIPanGestureRecognizer = {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+
+        return panGesture
+    }()
+    
     init(userPermissin: UserPermission, delegate: AgoraVideoViewerDelegate? = nil) {
         self.userPermissin = userPermissin
         self.delegate = delegate
@@ -458,6 +464,9 @@ extension WellCareViewController: AgoraVideoViewerDelegate {
     func endEnterPIP() {
         let minimizedWidth = 190.0 * UIScreen.main.bounds.width / 384.0
         self.view.frame = CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: minimizedWidth, height: minimizedWidth))
+        self.view.layer.cornerRadius = 5
+        self.view.clipsToBounds = true
+
         relayoutAgoraVideoView()
         
     }
@@ -479,8 +488,7 @@ extension WellCareViewController: AgoraVideoViewerDelegate {
 
         ])
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        view.addGestureRecognizer(panGesture)
+        view.addGestureRecognizer(pandGesture)
     }
     
     func exitPIP() {
@@ -490,7 +498,9 @@ extension WellCareViewController: AgoraVideoViewerDelegate {
         backButton.isHidden = pip
         
         self.view.frame = UIScreen.main.bounds
+        self.view.layer.cornerRadius = 0
         pipControlView.removeFromSuperview()
+        view.removeGestureRecognizer(pandGesture)
     }
     
     
@@ -531,11 +541,11 @@ extension WellCareViewController: PIPControlViewDelegate {
         case .close:
             agoraView?.tappedEndCallButton()
         case .flip:
-            agoraView.flipCamera()
+            agoraView?.flipCamera()
         case .camera:
-            agoraView.toggleCam(nil)
+            agoraView?.toggleCam(nil)
         case .mic:
-            agoraView.toggleMic(nil)
+            agoraView?.toggleMic(nil)
         }
     }
 }
