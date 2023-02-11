@@ -185,5 +185,4 @@ extension AgoraVideoViewer {
         defer { if leaveChannelRtn == 0 { delegate?.leftChannel(chName) } }
         return leaveChannelRtn
     }
-
 }

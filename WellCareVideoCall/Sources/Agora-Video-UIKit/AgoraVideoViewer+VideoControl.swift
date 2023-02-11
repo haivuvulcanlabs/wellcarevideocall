@@ -238,7 +238,7 @@ extension AgoraVideoViewer {
     }
     
     @objc func tappedChatButton() {
-        
+        pip = true
     }
 
     

@@ -57,6 +57,7 @@
 		21447D23299095E300D09766 /* AgoraSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21447CFB299095E300D09766 /* AgoraSettings.swift */; };
 		21447D262990974000D09766 /* RtcBasic in Frameworks */ = {isa = PBXBuildFile; productRef = 21447D252990974000D09766 /* RtcBasic */; };
 		21447D292990978300D09766 /* AgoraRtmKit in Frameworks */ = {isa = PBXBuildFile; productRef = 21447D282990978300D09766 /* AgoraRtmKit */; };
+		21709F8B29979D2E00692596 /* PIPControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21709F8A29979D2E00692596 /* PIPControlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		21447CF9299095E300D09766 /* AgoraVideoViewer+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AgoraVideoViewer+Utilities.swift"; sourceTree = "<group>"; };
 		21447CFA299095E300D09766 /* AgoraUIKit+AgoraRtmController+MuteRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AgoraUIKit+AgoraRtmController+MuteRequests.swift"; sourceTree = "<group>"; };
 		21447CFB299095E300D09766 /* AgoraSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraSettings.swift; sourceTree = "<group>"; };
+		21709F8A29979D2E00692596 /* PIPControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIPControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				21447CBD299095B800D09766 /* SceneDelegate.swift */,
 				21447CBF299095B800D09766 /* ViewController.swift */,
 				2121CA1C2991537700CBC2EE /* WellCareViewController.swift */,
+				21709F8A29979D2E00692596 /* PIPControlView.swift */,
 				21447CC1299095B800D09766 /* Main.storyboard */,
 				21447CC4299095B900D09766 /* Assets.xcassets */,
 				21447CC6299095B900D09766 /* LaunchScreen.storyboard */,
@@ -342,6 +345,7 @@
 				21447D08299095E300D09766 /* AgoraVideoViewer+AgoraExtensions.swift in Sources */,
 				21447D0C299095E300D09766 /* UIButton+Extensions.swift in Sources */,
 				21447D1B299095E300D09766 /* AgoraVideoViewer+LocalVideo.swift in Sources */,
+				21709F8B29979D2E00692596 /* PIPControlView.swift in Sources */,
 				21447CBC299095B800D09766 /* AppDelegate.swift in Sources */,
 				21447D00299095E300D09766 /* Documentation.docc in Sources */,
 				21447D1D299095E300D09766 /* AgoraUIKit+MD5.swift in Sources */,

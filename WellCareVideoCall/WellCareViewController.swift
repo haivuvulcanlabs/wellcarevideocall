@@ -50,7 +50,7 @@ class WellCareViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "ic-bluetooth"), for: .normal)
         button.addTarget(self, action: #selector(tappedBluetoothButton(_:)), for: .touchUpInside)
-
+        
         return button
     }()
     
@@ -90,8 +90,17 @@ class WellCareViewController: UIViewController {
     private var callTimer: Timer?
     private var callTime: Int = 0
     private let userPermissin: UserPermission
-    init(userPermissin: UserPermission) {
+    private let delegate: AgoraVideoViewerDelegate?
+    var trayOriginalCenter: CGPoint = .zero
+    private lazy var pipControlView: PIPControlView = {
+        let view = PIPControlView()
+        view.delegate = self
+        return view
+    }()
+    
+    init(userPermissin: UserPermission, delegate: AgoraVideoViewerDelegate? = nil) {
         self.userPermissin = userPermissin
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -121,7 +130,7 @@ class WellCareViewController: UIViewController {
             connectionData: AgoraConnectionData(
                 appId: appID,
                 rtcToken: token
-            )
+            ), delegate: self
         )
         agoraView.fills(view: self.view)
         
@@ -168,8 +177,6 @@ class WellCareViewController: UIViewController {
             airplayVolume.widthAnchor.constraint(equalToConstant: 20),
             airplayVolume.heightAnchor.constraint(equalToConstant: 20)
         ])
-
-        
     }
     
     func layoutCountdownView() {
@@ -447,8 +454,91 @@ extension WellCareViewController: AgoraVideoViewerDelegate {
     @objc func endCallTime() {
         self.agoraView?.tappedEndCallButton()
     }
+    
+    func endEnterPIP() {
+        let minimizedWidth = 190.0 * UIScreen.main.bounds.width / 384.0
+        self.view.frame = CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: minimizedWidth, height: minimizedWidth))
+        relayoutAgoraVideoView()
+        
+    }
+    
+    func relayoutAgoraVideoView() {
+        let pip = (self.agoraView?.pip ?? false)
+        topControlerView.isHidden = pip
+        countdownView.isHidden = pip
+        backButton.isHidden = pip
+        
+
+        view.addSubview(pipControlView)
+        pipControlView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pipControlView.topAnchor.constraint(equalTo: view.topAnchor),
+            pipControlView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            pipControlView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            pipControlView.rightAnchor.constraint(equalTo: view.rightAnchor),
+
+        ])
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        view.addGestureRecognizer(panGesture)
+    }
+    
+    func exitPIP() {
+        let pip = (self.agoraView?.pip ?? false)
+        topControlerView.isHidden = pip
+        countdownView.isHidden = pip
+        backButton.isHidden = pip
+        
+        self.view.frame = UIScreen.main.bounds
+        pipControlView.removeFromSuperview()
+    }
+    
+    
+    @objc func handlePan(_ sender: UIPanGestureRecognizer) {
+        var translation = sender.translation(in: self.view)
+        var velocity = sender.velocity(in: self.view)
+        let minimizedWidth = 190.0 * UIScreen.main.bounds.width / 384.0
+
+        if sender.state == .began {
+            trayOriginalCenter = self.view.center
+            
+        } else if sender.state == .changed {
+            
+            var newOffsetY = trayOriginalCenter.y + translation.y
+            var newOffsetX = trayOriginalCenter.x + translation.x
+
+            newOffsetX = max(minimizedWidth/2, newOffsetX)
+            newOffsetX = min(UIScreen.main.bounds.width -  minimizedWidth/2, newOffsetX)
+
+            
+            newOffsetY = max(minimizedWidth/2, newOffsetY)
+            newOffsetY = min(UIScreen.main.bounds.height - minimizedWidth/2, newOffsetY)
+
+            self.view.center = CGPoint(x: newOffsetX, y: newOffsetY)
+            
+        } else if sender.state == .ended {
+            
+        }
+    }
 }
 
+extension WellCareViewController: PIPControlViewDelegate {
+    func didSelectButton(_ action: ButtonAction) {
+        switch action {
+        case .pip:
+            agoraView?.pip = false
+            exitPIP()
+        case .close:
+            agoraView?.tappedEndCallButton()
+        case .flip:
+            agoraView.flipCamera()
+        case .camera:
+            agoraView.toggleCam(nil)
+        case .mic:
+            agoraView.toggleMic(nil)
+        }
+    }
+}
 
 extension UIViewController {
     var hasTopNorth: Bool {

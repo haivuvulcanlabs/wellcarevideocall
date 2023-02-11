@@ -307,3 +307,19 @@ extension AgoraVideoViewer {
         return UIScreen.main.bounds.height >= 812
     }
 }
+
+extension AgoraVideoViewer {
+    func relayoutAgoraView() {
+        if !Thread.isMainThread {
+            DispatchQueue.main.async {
+                self.relayoutAgoraView()
+            }
+            return
+        }
+        
+        if let controlContainer = controlContainer {
+            controlContainer.isHidden = self.pip
+        }
+        
+    }
+}

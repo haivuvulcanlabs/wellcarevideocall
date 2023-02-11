@@ -69,6 +69,8 @@ public protocol AgoraVideoViewerDelegate: AnyObject {
         code: AgoraRtmJoinChannelErrorCode
     )
     #endif
+    
+    func endEnterPIP()
 }
 
 public extension AgoraVideoViewerDelegate {
@@ -322,6 +324,16 @@ open class AgoraVideoViewer: MPView, SingleVideoViewDelegate {
             self.agkit.setCameraTorchOn(torchOn)
         }
     }
+    
+    var pip: Bool = false {
+        didSet {
+            if oldValue != self.pip {
+                self.relayoutAgoraView()
+                self.delegate?.endEnterPIP()
+            }
+        }
+    }
+    
     
     /// Creates an AgoraVideoViewer object, to be placed anywhere in your application.
     /// - Parameters:
